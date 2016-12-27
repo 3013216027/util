@@ -1,0 +1,79 @@
+Ethernet1/0/5 current state : UP
+Line protocol current state : UP
+Description:TO-TJFW12BHW-GE1/0/1
+Route Port,The Maximum Transmit Unit is 1500
+IP Sending Frames' Format is PKTFMT_ETHNT_2, Hardware address is 1047-8001-0f5c
+The Vendor Name is FINISAR CORP. , The Vendor PN is FTLX1412M3BCL
+The Vendor SN is UNE0284
+Transceiver max BW: 9900~11300Mbps, Transceiver Mode: Single Mode
+WaveLength: 1310nm, Transmission Distance: 10km
+Rx Optical Power: -2.07dBm, warning range: [-18.01, 2.00]dBm
+Tx Optical Power: -2.19dBm, warning range: [-6.00, 1.00]dBm
+Loopback:none, LAN full-duplex mode, Pause Flowcontrol:Receive Enable and Send Enable
+Last physical up time : 2015-12-18 01:19:26
+Last physical down time : 2015-12-18 00:53:29
+Max input bit rate: 1090144 bits/sec at 2016-01-14 23:19:12
+Max output bit rate: 64161032 bits/sec at 2016-01-26 00:36:32
+Max input packet rate: 404 packets/sec at 2016-01-14 23:19:12
+Max output packet rate: 52344 packets/sec at 2016-01-26 00:36:32
+Statistics last cleared:2015-12-18 00:53:40
+Last 300 seconds input rate: 16 bits/sec, 0 packets/sec
+Last 300 seconds output rate: 423824 bits/sec, 328 packets/sec
+Input: 113383273 bytes, 824682 packets
+Output: 429660116882 bytes, 2670915996 packets
+Input:
+Unicast: 824617 packets, Multicast: 39 packets
+Broadcast: 26 packets, JumboOctets: 0 packets
+CRC: 0 packets, Symbol: 0 packets
+Overrun: 0 packets, InRangeLength: 0 packets
+LongPacket: 0 packets, Jabber: 0 packets, Alignment: 0 packets
+Fragment: 0 packets, Undersized Frame: 0 packets
+RxPause: 0 packets
+Output:
+Unicast: 2670749921 packets, Multicast: 138068 packets
+Broadcast: 28007 packets, JumboOctets: 0 packets
+Lost: 0 packets, Overflow: 0 packets, Underrun: 0 packets
+System: 0 packets, Overruns: 0 packets
+TxPause: 0 packets
+Input bandwidth utilization : 0.01%
+Output bandwidth utilization : 0.01%
+
+GigabitEthernet1/0/4 current state : UP
+Line protocol current state : UP
+Description:TO-TJFW12BHW-GE1/0/1
+Route Port,The Maximum Transmit Unit is 1500
+IP Sending Frames' Format is PKTFMT_ETHNT_2, Hardware address is 1047-8001-0f5c
+The Vendor Name is FINISAR CORP. , The Vendor PN is FTLX1412M3BCL
+The Vendor SN is UNE0284
+Transceiver max BW: 9900~11300Mbps, Transceiver Mode: Single Mode
+WaveLength: 1310nm, Transmission Distance: 10km
+Rx Optical Power: -2.07dBm, warning range: [-18.01, 2.00]dBm
+Tx Optical Power: -2.19dBm, warning range: [-6.00, 1.00]dBm
+Loopback:none, LAN full-duplex mode, Pause Flowcontrol:Receive Enable and Send Enable
+Last physical up time : 2015-12-18 01:19:26
+Last physical down time : 2015-12-18 00:53:29
+Max input bit rate: 1090144 bits/sec at 2016-01-14 23:19:12
+Max output bit rate: 64161032 bits/sec at 2016-01-26 00:36:32
+Max input packet rate: 404 packets/sec at 2016-01-14 23:19:12
+Max output packet rate: 52344 packets/sec at 2016-01-26 00:36:32
+Statistics last cleared:2015-12-18 00:53:40
+Last 300 seconds input rate: 14324 bits/sec, 0 packets/sec
+Last 300 seconds output rate: 4432424 bits/sec, 328 packets/sec
+Input: 113383273 bytes, 824682 packets
+Output: 429660116882 bytes, 2670915996 packets
+Input:
+Unicast: 824617 packets, Multicast: 39 packets
+Broadcast: 26 packets, JumboOctets: 0 packets
+CRC: 0 packets, Symbol: 0 packets
+Overrun: 0 packets, InRangeLength: 0 packets
+LongPacket: 0 packets, Jabber: 0 packets, Alignment: 0 packets
+Fragment: 0 packets, Undersized Frame: 0 packets
+RxPause: 0 packets
+Output:
+Unicast: 2670749921 packets, Multicast: 138068 packets
+Broadcast: 28007 packets, JumboOctets: 0 packets
+Lost: 0 packets, Overflow: 0 packets, Underrun: 0 packets
+System: 0 packets, Overruns: 0 packets
+TxPause: 0 packets
+Input bandwidth utilization : 0.02%
+Output bandwidth utilization : 3.01% 
