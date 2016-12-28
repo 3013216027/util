@@ -195,7 +195,7 @@ int main(int argc, char** argv) {
 			printf("\tid = %d, file name: %s...\n", id++, file_name);
 			FILE* fd = fopen(file_name, "r");
             if (fd == NULL) {
-                strcpy(file_name + strlen(file_name), ".txt");
+            	strcat(file_name, ".txt");
                 fd = fopen(file_name, "r");
             }
 			if (fd == NULL) {
@@ -221,7 +221,7 @@ int main(int argc, char** argv) {
 			FILE* fd = fopen(argv[i], "r");
             if (fd == NULL) {
                 strcpy(file_name, argv[i]);
-                strcpy(file_name + strlen(file_name), ".txt");
+                strcat(file_name, ".txt");
                 fd = fopen(file_name, "r");
             }
 			if (fd == NULL) {
@@ -233,7 +233,15 @@ int main(int argc, char** argv) {
 			printf("--------------------------------------------\n");
 		}
 	}
-	book->save("gao.xls");
+	printf("Save file as(default a.xls):");
+	fgets(file_name, 1024, stdin);
+	file_name[strlen(file_name) - 1] = '\0';
+	if (file_name[0] == '\0') {
+		strcpy(file_name, "a.xls");
+	} else if (strlen(file_name) < 4 || strcmp(file_name + strlen(file_name) - 4, ".xls") != 0) {
+		strcat(file_name, ".xls");
+	}
+	book->save(file_name);
 	book->release(); 
 	return 0;
 }
