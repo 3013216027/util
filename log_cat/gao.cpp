@@ -19,20 +19,76 @@ const int MAX = 10086;  // line buffer size
 char buffer[MAX];  // line buffer
 
 const char HEADER[] = "Ethernet";  // paragraph header
-const char HEADER_PATTERNS[4][256] = {
+const char HEADER_PATTERNS[2][256] = {
 	"Input bandwidth utilization(%)",
 	"Output bandwidth utilization(%)",
-	"Last 300 seconds input rate(bits/s)",
-	"Last 300 seconds output rate(bits/s)",
+	// "Last 300 seconds input rate(bits/s)",
+	// "Last 300 seconds output rate(bits/s)",
 };
-const char PATTERNS[4][256] = {
-	/* all possible patterns */ 
+const char PATTERNS[2][256] = {
+	/* all possible patterns */
 	"Input bandwidth utilization",
 	"Output bandwidth utilization",
-	"Last 300 seconds input rate",
-	"Last 300 seconds output rate",
+	// "Last 300 seconds input rate",
+	// "Last 300 seconds output rate",
 };
 const int PATTERN_NUM = sizeof(PATTERNS) / 256;
+
+char* match_str(char* str, const char* pattern) {
+	while (*pattern != '\0') {
+		if (*str == '\0' || *pattern != *str) {
+			return NULL;
+		}
+		++pattern;
+		++str;
+	}
+	return str;
+}
+
+char* match_num(char* str) {
+	bool flag = false;
+	while (*str != '\0' && isdigit(*str)) {
+		flag = true;
+		++str;
+	}
+	return flag ? str : NULL;
+}
+
+//Eth-Trunk4.3 current state
+//Eth-Trunk4 current state
+//GigabitEthernet0/0/0 current state
+//Ethernet0/0/0 current state
+//~~Aux0/0/1 current state~~
+bool match_ether(char* str) {
+	char* tmp = match_str(str, "Ethernet");
+	tmp || (tmp = match_str(str, "GigabitEthernet"));
+	// tmp || (tmp = match_str(str, "Aux"));
+	tmp && (tmp = match_num(tmp));
+	tmp && (tmp = match_str(tmp, "/"));
+	tmp && (tmp = match_num(tmp));
+	tmp && (tmp = match_str(tmp, "/"));
+	tmp && (tmp = match_num(tmp));
+	tmp && (tmp = match_str(tmp, " current state"));
+	return tmp != NULL;
+}
+
+bool match_trunk(char* str) {
+	char* tmp = match_str(str, "Eth-Trunk");
+	tmp && (tmp = match_num(tmp));
+	if (tmp != NULL) {
+		char* tmp2 = match_str(tmp, ".");
+		if (tmp2 != NULL) {
+			tmp = tmp2;
+			tmp = match_num(tmp);
+		}
+	}
+	tmp && (tmp = match_str(tmp, " current state"));
+	return tmp != NULL;
+}
+
+bool match_header(char* line) {
+	return match_ether(line) || match_trunk(line);
+}
 
 void gao(FILE* fd, Sheet* sheet) {
 	sheet->writeStr(1, 0, "Device");
@@ -41,8 +97,7 @@ void gao(FILE* fd, Sheet* sheet) {
 	}
 	int device_id = 1;
 	while (fgets(buffer, MAX, fd) != NULL) {
-		char* sub = strstr(buffer, HEADER);
-		if (sub != NULL) {
+		if (match_header(buffer)) {
 			/* we meet a new paragraph */
 			char* end = buffer;
 			while (*end != ' ' && *end != '\0') {
@@ -58,7 +113,7 @@ void gao(FILE* fd, Sheet* sheet) {
 		
 		for (int i = 0; i < PATTERN_NUM; ++i) {
 			const char* pattern = PATTERNS[i];
-			sub = strstr(buffer, pattern);
+			char* sub = strstr(buffer, pattern);
 			//printf("try [%s] match pattern [%s]...\n", buffer, pattern);
 			if (sub != NULL) {
 				//printf("[%s] match pattern [%s]\n", buffer, pattern);
