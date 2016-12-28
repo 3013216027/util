@@ -96,6 +96,7 @@ void gao(FILE* fd, Sheet* sheet) {
 		sheet->writeStr(1, i + 1, HEADER_PATTERNS[i]);
 	}
 	int device_id = 1;
+	int data_buffer_size = -1;
 	while (fgets(buffer, MAX, fd) != NULL) {
 		if (match_header(buffer)) {
 			/* we meet a new paragraph */
@@ -108,6 +109,7 @@ void gao(FILE* fd, Sheet* sheet) {
 			sheet->writeStr(device_id, 0, buffer);
 			printf("---- Device: %s ----\n", buffer);
 			*end = ' ';
+			data_buffer_size = 0;
 			continue;
 		}
 		
@@ -117,6 +119,11 @@ void gao(FILE* fd, Sheet* sheet) {
 			//printf("try [%s] match pattern [%s]...\n", buffer, pattern);
 			if (sub != NULL) {
 				//printf("[%s] match pattern [%s]\n", buffer, pattern);
+				if (data_buffer_size < 0 || data_buffer_size > 4) {
+					// dropped
+					continue;
+				}
+				++data_buffer_size;
 				while (!isdigit(*sub)) {
 					++sub;
 				}
