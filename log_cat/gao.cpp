@@ -113,19 +113,18 @@ int main(int argc, char** argv) {
 		exit(1);
 	}
 
+    char file_name[1024];
 	if (argc == 1) {
 		/* no file name(s) specificed, read from stdin */
 		int id = 1;
 		while (true) {
 			printf("Please input file name. one line each, press Enter directly to terminate...\n");
-			char file_name[1024];
 			fgets(file_name, 1024, stdin);
 			int len = strlen(file_name);
 			if (len <= 1) {
 				break;
 			}
 			file_name[strlen(file_name) - 1] = '\0';
-            printf("file_name = %s\n", parse_file_name(file_name));
 			Sheet* sheet = book->addSheet(parse_file_name(file_name));
 			if (sheet == NULL) {
 				printf("T.T something is wrong\n");
@@ -133,6 +132,10 @@ int main(int argc, char** argv) {
 			}
 			printf("\tid = %d, file name: %s...\n", id++, file_name);
 			FILE* fd = fopen(file_name, "r");
+            if (fd == NULL) {
+                strcpy(file_name + strlen(file_name), ".txt");
+                fd = fopen(file_name, "r");
+            }
 			if (fd == NULL) {
 				printf("open file %s failed...\n", file_name);
 				continue;
@@ -154,6 +157,15 @@ int main(int argc, char** argv) {
 			}
 			printf("\tid = %d, file name: %s...\n", i, argv[i]);
 			FILE* fd = fopen(argv[i], "r");
+            if (fd == NULL) {
+                strcpy(file_name, argv[i]);
+                strcpy(file_name + strlen(file_name), ".txt");
+                fd = fopen(file_name, "r");
+            }
+			if (fd == NULL) {
+				printf("open file %s failed...\n", file_name);
+				continue;
+			}
 			gao(fd, sheet);
 			fclose(fd);
 			printf("--------------------------------------------\n");
