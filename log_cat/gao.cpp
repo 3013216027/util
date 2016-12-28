@@ -95,6 +95,17 @@ void gao(FILE* fd, Sheet* sheet) {
 	sheet->setAutoFitArea(0, 0, device_id + 1, PATTERN_NUM + 1);
 }
 
+char* parse_file_name(char* file_name) {
+    char* s = file_name + strlen(file_name);
+    while (s != file_name && *s != '/') {
+        --s;
+    }
+    if (s != file_name) {
+        ++s;
+    }
+    return s;
+}
+
 int main(int argc, char** argv) {
 	Book* book = xlCreateBook();  // a new xlsx book :)
 	if (book == NULL) {
@@ -114,7 +125,8 @@ int main(int argc, char** argv) {
 				break;
 			}
 			file_name[strlen(file_name) - 1] = '\0';
-			Sheet* sheet = book->addSheet(file_name);
+            printf("file_name = %s\n", parse_file_name(file_name));
+			Sheet* sheet = book->addSheet(parse_file_name(file_name));
 			if (sheet == NULL) {
 				printf("T.T something is wrong\n");
 				exit(2);
@@ -135,7 +147,7 @@ int main(int argc, char** argv) {
 	} else {
 		/* handle each of args */
 		for (int i = 1; i < argc; ++i) {
-			Sheet* sheet = book->addSheet(argv[i]);
+			Sheet* sheet = book->addSheet(parse_file_name(argv[i]));
 			if (sheet == NULL) {
 				printf("T.T something is wrong\n");
 				exit(2);
